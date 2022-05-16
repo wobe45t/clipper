@@ -1,0 +1,64 @@
+version: '3.9'
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: clipper-app
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+  # pgadmin:
+    # container_name: pgadmin4_container
+    # image: dpage/pgadmin4
+    # restart: always
+    # environment:
+    #   PGADMIN_DEFAULT_EMAIL: root@root.com 
+    #   PGADMIN_DEFAULT_PASSWORD: root
+    # ports:
+    #   - "5050:80"
+    # depends_on:
+    #   - db
+    # networks:
+    #   - internal
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - internal
+  frontend: 
+    container_name: frontend
+    build:
+      context: ./frontend-web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - internal
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "7000:7000"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - internal
+
+volumes:
+  datastore:
+networks:
+  internal:

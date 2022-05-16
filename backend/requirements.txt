@@ -1,0 +1,14 @@
+pydantic
+pydantic[email]
+passlib
+sqlalchemy
+uvicorn
+fastapi
+aiofiles
+python-multipart
+boto3
+psycopg2-binary
+google-cloud-speech
+pyjwt
+pydub
+requests

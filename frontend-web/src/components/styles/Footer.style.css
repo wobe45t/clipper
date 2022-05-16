@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background-color: lightgrey;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.footer:hover {
+  cursor: default;
+}

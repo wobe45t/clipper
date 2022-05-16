@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  miniot:
+    container_name: miniot
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    volumes:
+      - datastore:/data
+    environment:
+      - "MINIO_ROOT_USER=minio"
+      - "MINIO_ROOT_PASSWORD=minio123"
+    command: server /data
+    networks:
+      - internal
+  backendt:
+    container_name: backendt
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - miniot
+    networks:
+      - internal
+  nginx:
+    container_name: nginxt
+    build:
+      context: ./nginx
+    ports:
+      - "7000:7000"
+    depends_on:
+      - miniot
+      - backendt
+    networks:
+      - internal
+volumes:
+  datastore:
+networks:
+  internal:

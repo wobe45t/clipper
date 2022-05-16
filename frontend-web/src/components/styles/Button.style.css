@@ -1,0 +1,12 @@
+.button {
+    padding: 10px;
+    margin: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: 'center';
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
